@@ -59,7 +59,7 @@ System.out.println(registration);
 
 
 //when registration is succesfull, it continues to login
-if (registration.equals("The user has been registered!")){
+if (registration.equals("The user has been registered")){
     System.out.println("______________________________________________");
     System.out.println("-------LOGIN TO YOUR REGISTERED ACCOUNT-------");
     System.out.println("______________________________________________");
