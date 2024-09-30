@@ -63,7 +63,7 @@ if (registration.equals("The user has been registered!")){
     System.out.println("______________________________________________");
     System.out.println("-------LOGIN TO YOUR REGISTERED ACCOUNT-------");
     System.out.println("______________________________________________");
-    System.out.println("Please enter Username: ");
+    System.out.println("Please enter your Username: ");
     loginUsername = sc.next();
     System.out.println("Please enter Password");
     loginPassword = sc.next();
