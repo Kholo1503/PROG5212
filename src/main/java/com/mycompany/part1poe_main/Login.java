@@ -34,7 +34,7 @@ class Login {
         Pattern check_specials = Pattern.compile("[*-`~!@$%&_'^]");  // Ensure password contains a special character
         Pattern check_Upper = Pattern.compile("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");  // Ensure password contains an uppercase letter
         
-        // Check if the password meets all criteria
+        // Check if the password meets all Criteria
         if (check_num.matcher(password).find() && 
             check_specials.matcher(password).find() && 
             check_Upper.matcher(password).find() && 
