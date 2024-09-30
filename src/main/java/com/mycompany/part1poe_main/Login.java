@@ -40,7 +40,7 @@ class Login {
             check_Upper.matcher(password).find() && 
             password.length() >= 8) {
             
-            System.out.println("Password successfully captured");
+            System.out.println("Password successfully captured.");
             return true;
         } else {
             System.out.println("Password is not correctly formatted. Please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.");
