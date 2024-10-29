@@ -4,83 +4,107 @@
  */
 package com.mycompany.part1poe_main;
 
-import java.util.regex.Pattern;
+/**
+ * 
+ * @author RC_Student_lab
+ */
 
-class Login {
-    
+public class Login { 
     // Declaration of user details
-    private String name;
-    private String surname;
-    private String Username;
-    private String Password;
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String password;
     
+    public Login(String firstname, String lastname, String username,String password ) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;  
+        this.password = password; 
+    }
+    
+    public Login(){
+    }
+    
+    //setter method
+    public void setfirstname(String firstname){
+        this.firstname = firstname;
+    }
+    public void setlastname(String lastname) {
+        this.lastname = lastname;
+    }
+    public void setusername(String username) {
+        this.username = username;
+    }
+     public void setpassword(String password){
+        this.password = password;
+    }
+     
+    //Getters for the methods
+    public String getfirstname(){
+        return this.firstname;
+    }
+    public String getusername(){
+        return this.username;
+    }
+    public String getlastname(){
+        return this.lastname;
+    }
+    public String getpassword(){
+        return this.password;
+    }
+   
     // Check if the username is correctly formatted
-    public boolean CheckUsername(String username) {
+    public boolean checkUsername() {
         // Username should contain "_" and be 5 or fewer characters
-        if (username.contains("_") && username.length() <= 5) {
-            System.out.println("Username has been captured.");
-            return true;
-        } else {
-            System.out.println("Username has not been captured, please "
-                    + "ensure that your username contains an underscore and is no more than 5 characters in length.");
-            return false;
+        return username.contains("_") && username.length() <= 5;
         }
-    }
-
     // Check if the password meets the complexity requirements
-    public boolean checkPasswordComplexity(String password) {
+    public boolean checkcomplexityofpassword(){
         // Regular expression patterns for validation
-        Pattern check_num = Pattern.compile("[0123456789]");  // Ensure password contains a number
-        Pattern check_specials = Pattern.compile("[*-`~!@$%&_'^]");  // Ensure password contains a special character
-        Pattern check_Upper = Pattern.compile("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");  // Ensure password contains an uppercase letter
-        
-        // Check if the password meets all Criteria
-        if (check_num.matcher(password).find() && 
-            check_specials.matcher(password).find() && 
-            check_Upper.matcher(password).find() && 
-            password.length() >= 8) {
-            
-            System.out.println("Password successfully captured.");
-            return true;
-        } else {
-            System.out.println("Password is not correctly formatted. Please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.");
-            return false;
-        }
+        return password.length()>=8&&
+        password.matches(".*[0-9].*")&&
+        password.matches(".*[*-`~!@$%&_'^].*")&&
+        password.matches(".*[ABCDEFGHIJKLMNOPQRSTUVWXYZ].*");
     }
-
+    
     // Register the user if the username and password are valid
-    public String registerUser(String Username, String Password, String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-        
+    public String registerUser(){ 
         // Check if the username is valid
-        if (!CheckUsername(Username)) {
-            return "Username incorrectly formatted.";
+        if (!checkUsername()) {
+        return "Username incorrectly formatted.";
         } 
         // Check if the password meets complexity requirements
-        else if (!checkPasswordComplexity(Password)) {
-            return "The password does not meet the complexity requirements.";
-        } else {
-            // Store valid username and password
-            this.Username = Username;
-            this.Password = Password;
-            return "The user has been registered!";
+        if (!checkcomplexityofpassword()) {
+        return "The password does not meet the complexity requirements.";
+        } 
+        return "The username has been captured\nPassword has been captured!";
         }
-    }
-
+    
     // Verify login details
-    public boolean loginUser(String username, String password) {
+    public boolean LoginUser(String username, String password) {
         // Check if the provided username and password match the registered details
-        return this.Username.equals(username) && this.Password.equals(password);
+        return this.username.equals(username) && 
+        this.password.equals(password);
     }
 
     // Return the login status message
-    public String LoginStatus(String username, String password) {
-        if (loginUser(username, password)) {
-            return "Welcome! " + name + " " + surname + ", it's great to see you again.";
-        } else {
+    public String returnLoginStatus(boolean LoginStatus) {
+        if (LoginStatus) {
+            return "Welcome! " + firstname + " " + lastname + ", it's great to see you again.";
+        }
             return "Username or password incorrect, please try again.";
         }
+        
+        //Method to create account
+        public void CreatAccount(String username, String password, String firstname, String lastname){
+            this.username = username;
+            this.password = password;
+            this.firstname = firstname;
+            this.lastname = lastname;
+            //print if succesful
+            System.out.println("account created successfully");
+        }         
     }
-}
+
 
