@@ -16,44 +16,23 @@ public class Login {
     private String username;
     private String password;
     
-    public Login(String firstname, String lastname, String username,String password ) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;  
-        this.password = password; 
-    }
-    
     public Login(){
     }
     
     //setter method
-    public void setfirstname(String firstname){
+    public void setFirstName(String firstname){
         this.firstname = firstname;
     }
-    public void setlastname(String lastname) {
+    public void setLastName(String lastname) {
         this.lastname = lastname;
     }
-    public void setusername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
-     public void setpassword(String password){
+     public void setPassword(String password){
         this.password = password;
     }
-     
-    //Getters for the methods
-    public String getfirstname(){
-        return this.firstname;
-    }
-    public String getusername(){
-        return this.username;
-    }
-    public String getlastname(){
-        return this.lastname;
-    }
-    public String getpassword(){
-        return this.password;
-    }
-   
+    
     // Check if the username is correctly formatted
     public boolean checkUsername() {
         // Username should contain "_" and be 5 or fewer characters
@@ -82,7 +61,7 @@ public class Login {
         }
     
     // Verify login details
-    public boolean LoginUser(String username, String password) {
+    public boolean loginUser(String username, String password) {
         // Check if the provided username and password match the registered details
         return this.username.equals(username) && 
         this.password.equals(password);
@@ -97,13 +76,12 @@ public class Login {
         }
         
         //Method to create account
-        public void CreatAccount(String username, String password, String firstname, String lastname){
+        public void createAccount(String username, String password, String firstname, String lastname){
             this.username = username;
             this.password = password;
             this.firstname = firstname;
             this.lastname = lastname;
-            //print if succesful
-            System.out.println("account created successfully");
+           
         }         
     }
 

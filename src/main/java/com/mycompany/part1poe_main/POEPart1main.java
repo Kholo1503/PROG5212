@@ -5,84 +5,94 @@
 
 package com.mycompany.part1poe_main;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 /**
  * 
  * @author RC_Student_lab
  */
 
 public class POEPart1main {
+    
+    private static int totalHours = 0;
 
     public static void main(String[] args) {
         
-        // Instance of the login external class
-        Login system = new Login();
-        // Creating the object of the scanner
-        Scanner sc = new Scanner(System.in);
-        //returning if the function is false
+       Login login = new Login();
+       JOptionPane.showMessageDialog(null, "Hi, Please create an Account");
+        Task system = new Task();
         boolean isAccountCreated = false;
-       
-        System.out.println("HI, PLEASE CREATE AN ACCOUNT");
-        //using a while loop to repeat the process
-        while (!isAccountCreated){
-        // Prompt heading page
-        System.out.println("______________________________________________");
-        System.out.println("========== FILL IN YOUR DETAILS BELOW ==========");
-        System.out.println("______________________________________________");
-
-        // Prompt the user for name and surname
-        System.out.println("Please enter Firstname: ");
-        String firstName = sc.nextLine();
-        system.setfirstname(firstName);
-        System.out.println("Please enter Lastname: ");
-        String lastName = sc.nextLine();
-        system.setlastname(lastName);
-
-        System.out.println("______________________________________________");
-        // User registration
-        System.out.println("---------------- REGISTER ACCOUNT --------------");
-        System.out.println("______________________________________________");
-
-        // Prompt user to create Username and Password
-        System.out.println("Create Username: ");
-        String username = sc.nextLine();
-        system.setusername(username);
-        System.out.println("Create Password: ");
-        String password = sc.nextLine();
-        system.setpassword(password);
-        // User registration
-        String registrationStatus = system.registerUser();
-        System.out.println(registrationStatus);
-
-        // When registration is successful, continue to login
-        if (registrationStatus.contains("The user has been registered!")) {
-            system.CreatAccount(username, password, firstName, lastName);
-            isAccountCreated = true;
-        }
+        
+        //loop for account created
+        while (!isAccountCreated) {
+            String firstName = JOptionPane.showInputDialog("Enter First Name: ");
+            login.setFirstName(firstName);
+            String lastName = JOptionPane.showInputDialog("Enter Last Name: ");
+            login.setLastName(lastName);
+            String username = JOptionPane.showInputDialog("Enter Username: ");
+            login.setUsername(username);
+            String password = JOptionPane.showInputDialog("Enter Password: ");
+            login.setPassword(password);
+            String registrationStatus = login.registerUser();
+            JOptionPane.showMessageDialog(null, registrationStatus);
+            if (registrationStatus.contains("successfully")) {
+                login.createAccount(username, password, firstName, lastName);
+                isAccountCreated = true;
+            }
         }
         
-            System.out.println("______________________________________________");
-            System.out.println("------- LOGIN TO YOUR REGISTERED ACCOUNT -------");
-            System.out.println("______________________________________________");
-            //using whileloop if it is a false input
-            boolean loginStatus = false;
-            
-            while (!loginStatus){
-            //prompt username
-            System.out.println("Please enter your Username: ");
-            String loginUsername = sc.nextLine();
-            System.out.println("Please enter Password: ");
-            String loginPassword = sc.nextLine();
-
-            // Display the login message
-            loginStatus = system.LoginUser(loginUsername, loginPassword);
-            
-            String loginMessage = system.returnLoginStatus(loginStatus);
-            System.out.println(loginMessage);
+        //user login process
+        boolean loginStatus = false;
+        while (!loginStatus) {
+            String loginUsername = JOptionPane.showInputDialog("Enter Username: ");
+            String loginPassword =  JOptionPane.showInputDialog("Enter Password: ");
+            loginStatus = login.loginUser(loginUsername, loginPassword);
+            String loginMessage = login.returnLoginStatus(loginStatus);
+            JOptionPane.showMessageDialog(null, loginMessage);
+        }
+        // kanban functioning after successfully login
+        JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
+        String input = JOptionPane.showInputDialog("How many tasks do you wish to enter?");
+        int numTasks = Integer.parseInt(input);
+        //create task based on on user input
+        for (int i = 0; i < numTasks; i++) {
+            addTask();
+        }
+        //display total hours of tasks
+        JOptionPane.showMessageDialog(null, "Total Hours: " + totalHours);
     }
+    
+    
+    private static void addTask(){
+        //prompt user for task details
+        String taskName = JOptionPane.showInputDialog("Enter Task Name: ");
+        String taskDescription = JOptionPane.showInputDialog("Enter Task Description (max of 50 characters): ");
+        //Ensure task descripturre is within the 50 character limit
+        while (taskDescription ==null || taskDescription.isEmpty() || taskDescription.length() >50) {
+            JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters");
+            taskDescription = JOptionPane.showInputDialog("Enter Task Diuration (max 50 chars): ");
+        }
+        //collect remaining task details
+        String developerDetails = JOptionPane.showInputDialog("Enter Developer Details (First & Last name ");
+        int taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Enter Task Duration (in hours): "));
+        String taskStatus = (String) JOptionPane.showInputDialog(null, 
+                "Select Task Status:",
+                "Task Status",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"To Do", "Doing", "Done"},
+                "To Do");
+        //Create a new task using the Task class
+        Task task = new Task(taskName, taskDescription, developerDetails, taskDuration, taskStatus);
+        if (task.checkTaskDescription()) {
+            //if task description is valid, add task duration to total and display task details
+            totalHours += task.getTaskDuration();
+            JOptionPane.showMessageDialog(null, task.printTaskDetails());
+        }else{
+            //if task description is too long, update the user
+            JOptionPane.showMessageDialog(null, "Task description is too long.");
+        }
     }
-    }
-
+}
 
 
 
